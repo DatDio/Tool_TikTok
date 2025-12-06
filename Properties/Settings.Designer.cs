@@ -429,5 +429,29 @@ namespace Tool_TikTok.Properties {
                 this["rdoChrome"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool rdoUrbanVPN {
+            get {
+                return ((bool)(this["rdoUrbanVPN"]));
+            }
+            set {
+                this["rdoUrbanVPN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string txtUserAgent {
+            get {
+                return ((string)(this["txtUserAgent"]));
+            }
+            set {
+                this["txtUserAgent"] = value;
+            }
+        }
     }
 }

@@ -471,10 +471,10 @@ namespace Tool_TikTok.Helpers
         }
         public static DateTime TimeStampToDate(int epoch)
         {
-            if (epoch == 0)
-            {
-                return DateTime.UtcNow.AddDays(10);
-            }
+            //if (epoch == 0)
+            //{
+            //    return DateTime.UtcNow.AddDays(10);
+            //}
             return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(epoch);
         }
         public static string GenerateUsername()

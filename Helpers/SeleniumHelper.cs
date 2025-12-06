@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Tool_TikTok.Helpers
 {
@@ -76,11 +77,11 @@ namespace Tool_TikTok.Helpers
 			}
 			return 1;
 		}
-		public static string GetTextElement(ChromeDriver driver, By locator,int count =0)
+		public static string GetTextElement(ChromeDriver driver, By locator, int count = 0)
 		{
 			try
 			{
-			//	var text = driver.FindElement(locator).Text;
+				var text = driver.FindElements(locator)[count].Text;
 				return driver.FindElements(locator)[count].Text;
 			}
 			catch
@@ -178,7 +179,30 @@ namespace Tool_TikTok.Helpers
 			return false;
 		}
 
+		public static bool SendKeysWithEmoji(ChromeDriver driver, By locator, string content, int loop = 20, int count = 0)
+		{
+			for (int i = 0; i < loop; i++)
+			{
+				try
+				{
+					var element = driver.FindElements(locator)[count];
 
+					// Sao chép toàn bộ nội dung vào Clipboard
+					Clipboard.SetText(content);
+
+					// Dán nội dung từ Clipboard vào trường nhập liệu
+					element.SendKeys(OpenQA.Selenium.Keys.Control + "v");
+
+					return true;
+				}
+				catch (Exception ex)
+				{
+					Debug.WriteLine("Error: " + ex.Message);
+					Thread.Sleep(1000);
+				}
+			}
+			return false;
+		}
 		public static List<IWebElement> FindElements(ChromeDriver driver, By locator)
 		{
 

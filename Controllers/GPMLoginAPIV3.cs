@@ -27,14 +27,15 @@ namespace Tool_TikTok.Controllers
 			{
 				rq.AllowAutoRedirect = true;
 				rq.KeepAlive = true;
-				string browser = Form1._rdoChrome ? "chromium" : "firefox";
-
+				//string browser = Form1._rdoChrome ? "chromium" : "firefox";
+				string browser = "firefox";
 				//rq.AddHeader("Content-Type", "application/json");
 				try
 				{
 					var content = $@"{{
     ""profile_name"" : ""{name}"",
     ""browser_core"": ""{browser}"",
+""browser_name"":""Firefox"",
  ""browser_type"": ""{browser}""
 }}";
 

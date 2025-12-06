@@ -50,6 +50,30 @@
 			this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
 			this.lblTimeRunning = new System.Windows.Forms.ToolStripLabel();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.C_Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.C_Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_PassEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_PassTikTok = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_ChanelName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Cookie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Country = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Follower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Topic = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Folder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Video1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Video2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Video3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Video4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Video5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Video = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_View = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_UserAgent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_GPMID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_Proxy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.C_TypeBrowser = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.thêmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.emailPassMailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,6 +112,11 @@
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.panel4 = new System.Windows.Forms.Panel();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.cbbCountryVPN = new System.Windows.Forms.ComboBox();
+			this.rdoUrbanVPN = new System.Windows.Forms.RadioButton();
+			this.panel6 = new System.Windows.Forms.Panel();
+			this.btnRaiseAcc = new System.Windows.Forms.Button();
+			this.ckbInteract = new System.Windows.Forms.CheckBox();
 			this.btnOpenProxy = new System.Windows.Forms.Button();
 			this.lblApiKeyTMProxy = new System.Windows.Forms.Label();
 			this.rdoProxyThuong = new System.Windows.Forms.RadioButton();
@@ -104,12 +133,11 @@
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.ckbChangePass = new System.Windows.Forms.CheckBox();
 			this.panel7 = new System.Windows.Forms.Panel();
+			this.txtUserAgent = new System.Windows.Forms.TextBox();
+			this.label16 = new System.Windows.Forms.Label();
 			this.rdoNotTimer = new System.Windows.Forms.RadioButton();
 			this.rdoTimer = new System.Windows.Forms.RadioButton();
 			this.ckbUpVideo = new System.Windows.Forms.CheckBox();
-			this.panel6 = new System.Windows.Forms.Panel();
-			this.btnRaiseAcc = new System.Windows.Forms.Button();
-			this.ckbInteract = new System.Windows.Forms.CheckBox();
 			this.panel5 = new System.Windows.Forms.Panel();
 			this.txtLinkToBuffFollow = new System.Windows.Forms.RichTextBox();
 			this.label15 = new System.Windows.Forms.Label();
@@ -138,30 +166,6 @@
 			this.txtTag = new System.Windows.Forms.RichTextBox();
 			this.btnSelectFolder = new System.Windows.Forms.Button();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.C_Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.C_Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_PassEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_PassTikTok = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_ChanelName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Cookie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Country = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Follower = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Topic = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Folder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Video1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Video2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Video3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Video4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Video5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Video = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_View = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_UserAgent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_GPMID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_Proxy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.C_TypeBrowser = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dfhdfh.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -175,10 +179,10 @@
 			this.tabPage1.SuspendLayout();
 			this.panel4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
+			this.panel6.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.panel7.SuspendLayout();
-			this.panel6.SuspendLayout();
 			this.panel5.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.txtTimeSleepTo)).BeginInit();
@@ -197,7 +201,7 @@
 			this.dfhdfh.Name = "dfhdfh";
 			this.dfhdfh.Padding = new System.Drawing.Point(15, 10);
 			this.dfhdfh.SelectedIndex = 0;
-			this.dfhdfh.Size = new System.Drawing.Size(1533, 683);
+			this.dfhdfh.Size = new System.Drawing.Size(1533, 695);
 			this.dfhdfh.TabIndex = 0;
 			// 
 			// tabPage2
@@ -209,7 +213,7 @@
 			this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-			this.tabPage2.Size = new System.Drawing.Size(1525, 641);
+			this.tabPage2.Size = new System.Drawing.Size(1525, 653);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Quản Lý";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -221,7 +225,7 @@
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.panel2.Controls.Add(this.pictureBox1);
 			this.panel2.Controls.Add(this.toolStrip1);
-			this.panel2.Location = new System.Drawing.Point(9, 600);
+			this.panel2.Location = new System.Drawing.Point(9, 612);
 			this.panel2.Margin = new System.Windows.Forms.Padding(2);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(1506, 29);
@@ -381,11 +385,173 @@
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.RowHeadersWidth = 51;
 			this.dataGridView1.RowTemplate.Height = 24;
-			this.dataGridView1.Size = new System.Drawing.Size(1506, 466);
+			this.dataGridView1.Size = new System.Drawing.Size(1506, 478);
 			this.dataGridView1.TabIndex = 1;
 			this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
 			this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
 			this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
+			// 
+			// C_Check
+			// 
+			this.C_Check.DataPropertyName = "C_Check";
+			this.C_Check.HeaderText = "X";
+			this.C_Check.MinimumWidth = 6;
+			this.C_Check.Name = "C_Check";
+			this.C_Check.Width = 30;
+			// 
+			// C_Account
+			// 
+			this.C_Account.DataPropertyName = "C_Account";
+			this.C_Account.HeaderText = "Account";
+			this.C_Account.MinimumWidth = 6;
+			this.C_Account.Name = "C_Account";
+			this.C_Account.Width = 125;
+			// 
+			// C_Email
+			// 
+			this.C_Email.DataPropertyName = "C_Email";
+			this.C_Email.HeaderText = "Email";
+			this.C_Email.MinimumWidth = 6;
+			this.C_Email.Name = "C_Email";
+			this.C_Email.Width = 125;
+			// 
+			// C_PassEmail
+			// 
+			this.C_PassEmail.HeaderText = "Pass Email";
+			this.C_PassEmail.Name = "C_PassEmail";
+			// 
+			// C_PassTikTok
+			// 
+			this.C_PassTikTok.HeaderText = "Pass TikTok";
+			this.C_PassTikTok.Name = "C_PassTikTok";
+			// 
+			// C_ChanelName
+			// 
+			this.C_ChanelName.HeaderText = "Tên Kênh";
+			this.C_ChanelName.Name = "C_ChanelName";
+			// 
+			// C_Cookie
+			// 
+			this.C_Cookie.DataPropertyName = "C_Cookie";
+			this.C_Cookie.HeaderText = "Cookie";
+			this.C_Cookie.MinimumWidth = 6;
+			this.C_Cookie.Name = "C_Cookie";
+			this.C_Cookie.Width = 125;
+			// 
+			// C_Country
+			// 
+			this.C_Country.HeaderText = "Quốc Gia";
+			this.C_Country.Name = "C_Country";
+			// 
+			// C_Url
+			// 
+			this.C_Url.DataPropertyName = "C_Url";
+			this.C_Url.HeaderText = "Url Kênh";
+			this.C_Url.MinimumWidth = 6;
+			this.C_Url.Name = "C_Url";
+			this.C_Url.Width = 125;
+			// 
+			// C_Follower
+			// 
+			this.C_Follower.DataPropertyName = "C_Follower";
+			this.C_Follower.HeaderText = "Follower";
+			this.C_Follower.MinimumWidth = 6;
+			this.C_Follower.Name = "C_Follower";
+			this.C_Follower.Width = 125;
+			// 
+			// C_Topic
+			// 
+			this.C_Topic.HeaderText = "Chủ đề";
+			this.C_Topic.Name = "C_Topic";
+			// 
+			// C_Folder
+			// 
+			this.C_Folder.DataPropertyName = "C_Folder";
+			this.C_Folder.HeaderText = "Thư mục video";
+			this.C_Folder.MinimumWidth = 6;
+			this.C_Folder.Name = "C_Folder";
+			this.C_Folder.Width = 125;
+			// 
+			// C_Status
+			// 
+			this.C_Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.C_Status.DataPropertyName = "C_Status";
+			this.C_Status.HeaderText = "Status";
+			this.C_Status.MinimumWidth = 200;
+			this.C_Status.Name = "C_Status";
+			// 
+			// C_Video1
+			// 
+			this.C_Video1.HeaderText = "Video 1";
+			this.C_Video1.Name = "C_Video1";
+			this.C_Video1.Width = 80;
+			// 
+			// C_Video2
+			// 
+			this.C_Video2.HeaderText = "Video 2";
+			this.C_Video2.Name = "C_Video2";
+			this.C_Video2.Width = 80;
+			// 
+			// C_Video3
+			// 
+			this.C_Video3.HeaderText = "Video 3";
+			this.C_Video3.Name = "C_Video3";
+			this.C_Video3.Width = 80;
+			// 
+			// C_Video4
+			// 
+			this.C_Video4.HeaderText = "Video 4";
+			this.C_Video4.Name = "C_Video4";
+			this.C_Video4.Width = 80;
+			// 
+			// C_Video5
+			// 
+			this.C_Video5.HeaderText = "Video 5";
+			this.C_Video5.Name = "C_Video5";
+			this.C_Video5.Width = 80;
+			// 
+			// C_Video
+			// 
+			this.C_Video.DataPropertyName = "C_Video";
+			this.C_Video.HeaderText = "Tổng Video";
+			this.C_Video.MinimumWidth = 6;
+			this.C_Video.Name = "C_Video";
+			// 
+			// C_View
+			// 
+			this.C_View.HeaderText = "Tổng  View";
+			this.C_View.Name = "C_View";
+			// 
+			// C_UserAgent
+			// 
+			this.C_UserAgent.DataPropertyName = "C_UserAgent";
+			this.C_UserAgent.HeaderText = "UserAgent";
+			this.C_UserAgent.MinimumWidth = 6;
+			this.C_UserAgent.Name = "C_UserAgent";
+			this.C_UserAgent.Width = 125;
+			// 
+			// C_GPMID
+			// 
+			this.C_GPMID.DataPropertyName = "C_GPMID";
+			dataGridViewCellStyle3.NullValue = "2";
+			this.C_GPMID.DefaultCellStyle = dataGridViewCellStyle3;
+			this.C_GPMID.HeaderText = "GPM Profile";
+			this.C_GPMID.MinimumWidth = 6;
+			this.C_GPMID.Name = "C_GPMID";
+			this.C_GPMID.Width = 125;
+			// 
+			// C_Proxy
+			// 
+			this.C_Proxy.DataPropertyName = "C_Proxy";
+			this.C_Proxy.HeaderText = "Proxy";
+			this.C_Proxy.MinimumWidth = 6;
+			this.C_Proxy.Name = "C_Proxy";
+			this.C_Proxy.Width = 125;
+			// 
+			// C_TypeBrowser
+			// 
+			this.C_TypeBrowser.HeaderText = "Loại Trình Duyệt";
+			this.C_TypeBrowser.Name = "C_TypeBrowser";
 			// 
 			// contextMenuStrip1
 			// 
@@ -738,7 +904,7 @@
 			this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-			this.tabPage1.Size = new System.Drawing.Size(1525, 641);
+			this.tabPage1.Size = new System.Drawing.Size(1525, 653);
 			this.tabPage1.TabIndex = 2;
 			this.tabPage1.Text = "Cài Đặt";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -758,11 +924,14 @@
 			this.panel4.Controls.Add(this.groupBox1);
 			this.panel4.Location = new System.Drawing.Point(8, 5);
 			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(1509, 628);
+			this.panel4.Size = new System.Drawing.Size(1509, 640);
 			this.panel4.TabIndex = 0;
 			// 
 			// groupBox5
 			// 
+			this.groupBox5.Controls.Add(this.cbbCountryVPN);
+			this.groupBox5.Controls.Add(this.rdoUrbanVPN);
+			this.groupBox5.Controls.Add(this.panel6);
 			this.groupBox5.Controls.Add(this.btnOpenProxy);
 			this.groupBox5.Controls.Add(this.lblApiKeyTMProxy);
 			this.groupBox5.Controls.Add(this.rdoProxyThuong);
@@ -776,12 +945,71 @@
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Proxy";
 			// 
+			// cbbCountryVPN
+			// 
+			this.cbbCountryVPN.FormattingEnabled = true;
+			this.cbbCountryVPN.Items.AddRange(new object[] {
+            "United States (USA)",
+            "United Kingdom (UK)",
+            "Japan",
+            "Italy"});
+			this.cbbCountryVPN.Location = new System.Drawing.Point(497, 49);
+			this.cbbCountryVPN.Name = "cbbCountryVPN";
+			this.cbbCountryVPN.Size = new System.Drawing.Size(206, 23);
+			this.cbbCountryVPN.TabIndex = 32;
+			// 
+			// rdoUrbanVPN
+			// 
+			this.rdoUrbanVPN.AutoSize = true;
+			this.rdoUrbanVPN.Location = new System.Drawing.Point(397, 52);
+			this.rdoUrbanVPN.Name = "rdoUrbanVPN";
+			this.rdoUrbanVPN.Size = new System.Drawing.Size(84, 19);
+			this.rdoUrbanVPN.TabIndex = 31;
+			this.rdoUrbanVPN.TabStop = true;
+			this.rdoUrbanVPN.Text = "Urban VPN";
+			this.rdoUrbanVPN.UseVisualStyleBackColor = true;
+			// 
+			// panel6
+			// 
+			this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel6.Controls.Add(this.btnRaiseAcc);
+			this.panel6.Controls.Add(this.ckbInteract);
+			this.panel6.Location = new System.Drawing.Point(397, 119);
+			this.panel6.Name = "panel6";
+			this.panel6.Size = new System.Drawing.Size(189, 34);
+			this.panel6.TabIndex = 27;
+			this.panel6.Visible = false;
+			// 
+			// btnRaiseAcc
+			// 
+			this.btnRaiseAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnRaiseAcc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btnRaiseAcc.Location = new System.Drawing.Point(90, 2);
+			this.btnRaiseAcc.Margin = new System.Windows.Forms.Padding(2);
+			this.btnRaiseAcc.Name = "btnRaiseAcc";
+			this.btnRaiseAcc.Size = new System.Drawing.Size(82, 27);
+			this.btnRaiseAcc.TabIndex = 21;
+			this.btnRaiseAcc.Text = "Cấu Hình";
+			this.btnRaiseAcc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+			this.btnRaiseAcc.UseVisualStyleBackColor = true;
+			this.btnRaiseAcc.Click += new System.EventHandler(this.btnRaiseAcc_Click);
+			// 
+			// ckbInteract
+			// 
+			this.ckbInteract.AutoSize = true;
+			this.ckbInteract.Location = new System.Drawing.Point(3, 8);
+			this.ckbInteract.Name = "ckbInteract";
+			this.ckbInteract.Size = new System.Drawing.Size(82, 19);
+			this.ckbInteract.TabIndex = 22;
+			this.ckbInteract.Text = "Tương Tác";
+			this.ckbInteract.UseVisualStyleBackColor = true;
+			// 
 			// btnOpenProxy
 			// 
 			this.btnOpenProxy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnOpenProxy.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenProxy.Image")));
 			this.btnOpenProxy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnOpenProxy.Location = new System.Drawing.Point(169, 35);
+			this.btnOpenProxy.Location = new System.Drawing.Point(144, 36);
 			this.btnOpenProxy.Margin = new System.Windows.Forms.Padding(2);
 			this.btnOpenProxy.Name = "btnOpenProxy";
 			this.btnOpenProxy.Size = new System.Drawing.Size(142, 48);
@@ -794,7 +1022,7 @@
 			// lblApiKeyTMProxy
 			// 
 			this.lblApiKeyTMProxy.AutoSize = true;
-			this.lblApiKeyTMProxy.Location = new System.Drawing.Point(279, 137);
+			this.lblApiKeyTMProxy.Location = new System.Drawing.Point(254, 138);
 			this.lblApiKeyTMProxy.Name = "lblApiKeyTMProxy";
 			this.lblApiKeyTMProxy.Size = new System.Drawing.Size(14, 15);
 			this.lblApiKeyTMProxy.TabIndex = 30;
@@ -803,7 +1031,7 @@
 			// rdoProxyThuong
 			// 
 			this.rdoProxyThuong.AutoSize = true;
-			this.rdoProxyThuong.Location = new System.Drawing.Point(51, 48);
+			this.rdoProxyThuong.Location = new System.Drawing.Point(26, 49);
 			this.rdoProxyThuong.Name = "rdoProxyThuong";
 			this.rdoProxyThuong.Size = new System.Drawing.Size(100, 19);
 			this.rdoProxyThuong.TabIndex = 19;
@@ -814,7 +1042,7 @@
 			// rdoTMProxy
 			// 
 			this.rdoTMProxy.AutoSize = true;
-			this.rdoTMProxy.Location = new System.Drawing.Point(51, 131);
+			this.rdoTMProxy.Location = new System.Drawing.Point(26, 132);
 			this.rdoTMProxy.Name = "rdoTMProxy";
 			this.rdoTMProxy.Size = new System.Drawing.Size(73, 19);
 			this.rdoTMProxy.TabIndex = 20;
@@ -825,7 +1053,7 @@
 			// lblcountProxy
 			// 
 			this.lblcountProxy.AutoSize = true;
-			this.lblcountProxy.Location = new System.Drawing.Point(321, 53);
+			this.lblcountProxy.Location = new System.Drawing.Point(296, 54);
 			this.lblcountProxy.Name = "lblcountProxy";
 			this.lblcountProxy.Size = new System.Drawing.Size(14, 15);
 			this.lblcountProxy.TabIndex = 18;
@@ -833,7 +1061,7 @@
 			// 
 			// btnApiKeyTMProxy
 			// 
-			this.btnApiKeyTMProxy.Location = new System.Drawing.Point(169, 132);
+			this.btnApiKeyTMProxy.Location = new System.Drawing.Point(144, 133);
 			this.btnApiKeyTMProxy.Name = "btnApiKeyTMProxy";
 			this.btnApiKeyTMProxy.Size = new System.Drawing.Size(104, 23);
 			this.btnApiKeyTMProxy.TabIndex = 29;
@@ -868,6 +1096,7 @@
 			this.rdoFireFox.TabStop = true;
 			this.rdoFireFox.Text = "FireFox";
 			this.rdoFireFox.UseVisualStyleBackColor = true;
+			this.rdoFireFox.Visible = false;
 			// 
 			// rdoChrome
 			// 
@@ -879,6 +1108,7 @@
 			this.rdoChrome.TabStop = true;
 			this.rdoChrome.Text = "Chrome";
 			this.rdoChrome.UseVisualStyleBackColor = true;
+			this.rdoChrome.Visible = false;
 			// 
 			// txtScale
 			// 
@@ -917,7 +1147,6 @@
 			// 
 			this.groupBox3.Controls.Add(this.ckbChangePass);
 			this.groupBox3.Controls.Add(this.panel7);
-			this.groupBox3.Controls.Add(this.panel6);
 			this.groupBox3.Controls.Add(this.panel5);
 			this.groupBox3.Controls.Add(this.ckbLoginByCookie);
 			this.groupBox3.Controls.Add(this.ckbRegTikTok);
@@ -933,7 +1162,7 @@
 			// ckbChangePass
 			// 
 			this.ckbChangePass.AutoSize = true;
-			this.ckbChangePass.Location = new System.Drawing.Point(14, 144);
+			this.ckbChangePass.Location = new System.Drawing.Point(14, 109);
 			this.ckbChangePass.Name = "ckbChangePass";
 			this.ckbChangePass.Size = new System.Drawing.Size(109, 19);
 			this.ckbChangePass.TabIndex = 31;
@@ -943,13 +1172,31 @@
 			// panel7
 			// 
 			this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel7.Controls.Add(this.txtUserAgent);
+			this.panel7.Controls.Add(this.label16);
 			this.panel7.Controls.Add(this.rdoNotTimer);
 			this.panel7.Controls.Add(this.rdoTimer);
 			this.panel7.Controls.Add(this.ckbUpVideo);
-			this.panel7.Location = new System.Drawing.Point(263, 155);
+			this.panel7.Location = new System.Drawing.Point(228, 70);
 			this.panel7.Name = "panel7";
-			this.panel7.Size = new System.Drawing.Size(251, 70);
+			this.panel7.Size = new System.Drawing.Size(390, 151);
 			this.panel7.TabIndex = 30;
+			// 
+			// txtUserAgent
+			// 
+			this.txtUserAgent.Location = new System.Drawing.Point(85, 77);
+			this.txtUserAgent.Name = "txtUserAgent";
+			this.txtUserAgent.Size = new System.Drawing.Size(283, 23);
+			this.txtUserAgent.TabIndex = 31;
+			// 
+			// label16
+			// 
+			this.label16.AutoSize = true;
+			this.label16.Location = new System.Drawing.Point(11, 81);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(68, 15);
+			this.label16.TabIndex = 30;
+			this.label16.Text = "User Agent:";
 			// 
 			// rdoNotTimer
 			// 
@@ -983,57 +1230,22 @@
 			this.ckbUpVideo.Text = "Đăng Video";
 			this.ckbUpVideo.UseVisualStyleBackColor = true;
 			// 
-			// panel6
-			// 
-			this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel6.Controls.Add(this.btnRaiseAcc);
-			this.panel6.Controls.Add(this.ckbInteract);
-			this.panel6.Location = new System.Drawing.Point(473, 352);
-			this.panel6.Name = "panel6";
-			this.panel6.Size = new System.Drawing.Size(189, 34);
-			this.panel6.TabIndex = 27;
-			this.panel6.Visible = false;
-			// 
-			// btnRaiseAcc
-			// 
-			this.btnRaiseAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnRaiseAcc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnRaiseAcc.Location = new System.Drawing.Point(90, 2);
-			this.btnRaiseAcc.Margin = new System.Windows.Forms.Padding(2);
-			this.btnRaiseAcc.Name = "btnRaiseAcc";
-			this.btnRaiseAcc.Size = new System.Drawing.Size(82, 27);
-			this.btnRaiseAcc.TabIndex = 21;
-			this.btnRaiseAcc.Text = "Cấu Hình";
-			this.btnRaiseAcc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.btnRaiseAcc.UseVisualStyleBackColor = true;
-			this.btnRaiseAcc.Click += new System.EventHandler(this.btnRaiseAcc_Click);
-			// 
-			// ckbInteract
-			// 
-			this.ckbInteract.AutoSize = true;
-			this.ckbInteract.Location = new System.Drawing.Point(3, 8);
-			this.ckbInteract.Name = "ckbInteract";
-			this.ckbInteract.Size = new System.Drawing.Size(82, 19);
-			this.ckbInteract.TabIndex = 22;
-			this.ckbInteract.Text = "Tương Tác";
-			this.ckbInteract.UseVisualStyleBackColor = true;
-			// 
 			// panel5
 			// 
 			this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.panel5.Controls.Add(this.txtLinkToBuffFollow);
 			this.panel5.Controls.Add(this.label15);
 			this.panel5.Controls.Add(this.ckbFollow);
-			this.panel5.Location = new System.Drawing.Point(263, 32);
+			this.panel5.Location = new System.Drawing.Point(14, 267);
 			this.panel5.Name = "panel5";
-			this.panel5.Size = new System.Drawing.Size(399, 103);
+			this.panel5.Size = new System.Drawing.Size(604, 103);
 			this.panel5.TabIndex = 26;
 			// 
 			// txtLinkToBuffFollow
 			// 
 			this.txtLinkToBuffFollow.Location = new System.Drawing.Point(19, 48);
 			this.txtLinkToBuffFollow.Name = "txtLinkToBuffFollow";
-			this.txtLinkToBuffFollow.Size = new System.Drawing.Size(394, 43);
+			this.txtLinkToBuffFollow.Size = new System.Drawing.Size(563, 43);
 			this.txtLinkToBuffFollow.TabIndex = 24;
 			this.txtLinkToBuffFollow.Text = "";
 			// 
@@ -1070,7 +1282,7 @@
 			// ckbRegTikTok
 			// 
 			this.ckbRegTikTok.AutoSize = true;
-			this.ckbRegTikTok.Location = new System.Drawing.Point(14, 105);
+			this.ckbRegTikTok.Location = new System.Drawing.Point(228, 32);
 			this.ckbRegTikTok.Name = "ckbRegTikTok";
 			this.ckbRegTikTok.Size = new System.Drawing.Size(107, 19);
 			this.ckbRegTikTok.TabIndex = 20;
@@ -1080,7 +1292,7 @@
 			// ckbStatistical
 			// 
 			this.ckbStatistical.AutoSize = true;
-			this.ckbStatistical.Location = new System.Drawing.Point(14, 187);
+			this.ckbStatistical.Location = new System.Drawing.Point(14, 152);
 			this.ckbStatistical.Name = "ckbStatistical";
 			this.ckbStatistical.Size = new System.Drawing.Size(77, 19);
 			this.ckbStatistical.TabIndex = 2;
@@ -1294,179 +1506,17 @@
 			this.timer1.Interval = 1000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
-			// C_Check
-			// 
-			this.C_Check.DataPropertyName = "C_Check";
-			this.C_Check.HeaderText = "X";
-			this.C_Check.MinimumWidth = 6;
-			this.C_Check.Name = "C_Check";
-			this.C_Check.Width = 30;
-			// 
-			// C_Account
-			// 
-			this.C_Account.DataPropertyName = "C_Account";
-			this.C_Account.HeaderText = "Account";
-			this.C_Account.MinimumWidth = 6;
-			this.C_Account.Name = "C_Account";
-			this.C_Account.Width = 125;
-			// 
-			// C_Email
-			// 
-			this.C_Email.DataPropertyName = "C_Email";
-			this.C_Email.HeaderText = "Email";
-			this.C_Email.MinimumWidth = 6;
-			this.C_Email.Name = "C_Email";
-			this.C_Email.Width = 125;
-			// 
-			// C_PassEmail
-			// 
-			this.C_PassEmail.HeaderText = "Pass Email";
-			this.C_PassEmail.Name = "C_PassEmail";
-			// 
-			// C_PassTikTok
-			// 
-			this.C_PassTikTok.HeaderText = "Pass TikTok";
-			this.C_PassTikTok.Name = "C_PassTikTok";
-			// 
-			// C_ChanelName
-			// 
-			this.C_ChanelName.HeaderText = "Tên Kênh";
-			this.C_ChanelName.Name = "C_ChanelName";
-			// 
-			// C_Cookie
-			// 
-			this.C_Cookie.DataPropertyName = "C_Cookie";
-			this.C_Cookie.HeaderText = "Cookie";
-			this.C_Cookie.MinimumWidth = 6;
-			this.C_Cookie.Name = "C_Cookie";
-			this.C_Cookie.Width = 125;
-			// 
-			// C_Country
-			// 
-			this.C_Country.HeaderText = "Quốc Gia";
-			this.C_Country.Name = "C_Country";
-			// 
-			// C_Url
-			// 
-			this.C_Url.DataPropertyName = "C_Url";
-			this.C_Url.HeaderText = "Url Kênh";
-			this.C_Url.MinimumWidth = 6;
-			this.C_Url.Name = "C_Url";
-			this.C_Url.Width = 125;
-			// 
-			// C_Follower
-			// 
-			this.C_Follower.DataPropertyName = "C_Follower";
-			this.C_Follower.HeaderText = "Follower";
-			this.C_Follower.MinimumWidth = 6;
-			this.C_Follower.Name = "C_Follower";
-			this.C_Follower.Width = 125;
-			// 
-			// C_Topic
-			// 
-			this.C_Topic.HeaderText = "Chủ đề";
-			this.C_Topic.Name = "C_Topic";
-			// 
-			// C_Folder
-			// 
-			this.C_Folder.DataPropertyName = "C_Folder";
-			this.C_Folder.HeaderText = "Thư mục video";
-			this.C_Folder.MinimumWidth = 6;
-			this.C_Folder.Name = "C_Folder";
-			this.C_Folder.Width = 125;
-			// 
-			// C_Status
-			// 
-			this.C_Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.C_Status.DataPropertyName = "C_Status";
-			this.C_Status.HeaderText = "Status";
-			this.C_Status.MinimumWidth = 200;
-			this.C_Status.Name = "C_Status";
-			// 
-			// C_Video1
-			// 
-			this.C_Video1.HeaderText = "Video 1";
-			this.C_Video1.Name = "C_Video1";
-			this.C_Video1.Width = 80;
-			// 
-			// C_Video2
-			// 
-			this.C_Video2.HeaderText = "Video 2";
-			this.C_Video2.Name = "C_Video2";
-			this.C_Video2.Width = 80;
-			// 
-			// C_Video3
-			// 
-			this.C_Video3.HeaderText = "Video 3";
-			this.C_Video3.Name = "C_Video3";
-			this.C_Video3.Width = 80;
-			// 
-			// C_Video4
-			// 
-			this.C_Video4.HeaderText = "Video 4";
-			this.C_Video4.Name = "C_Video4";
-			this.C_Video4.Width = 80;
-			// 
-			// C_Video5
-			// 
-			this.C_Video5.HeaderText = "Video 5";
-			this.C_Video5.Name = "C_Video5";
-			this.C_Video5.Width = 80;
-			// 
-			// C_Video
-			// 
-			this.C_Video.DataPropertyName = "C_Video";
-			this.C_Video.HeaderText = "Tổng Video";
-			this.C_Video.MinimumWidth = 6;
-			this.C_Video.Name = "C_Video";
-			// 
-			// C_View
-			// 
-			this.C_View.HeaderText = "Tổng  View";
-			this.C_View.Name = "C_View";
-			// 
-			// C_UserAgent
-			// 
-			this.C_UserAgent.DataPropertyName = "C_UserAgent";
-			this.C_UserAgent.HeaderText = "UserAgent";
-			this.C_UserAgent.MinimumWidth = 6;
-			this.C_UserAgent.Name = "C_UserAgent";
-			this.C_UserAgent.Width = 125;
-			// 
-			// C_GPMID
-			// 
-			this.C_GPMID.DataPropertyName = "C_GPMID";
-			dataGridViewCellStyle3.NullValue = "2";
-			this.C_GPMID.DefaultCellStyle = dataGridViewCellStyle3;
-			this.C_GPMID.HeaderText = "GPM Profile";
-			this.C_GPMID.MinimumWidth = 6;
-			this.C_GPMID.Name = "C_GPMID";
-			this.C_GPMID.Width = 125;
-			// 
-			// C_Proxy
-			// 
-			this.C_Proxy.DataPropertyName = "C_Proxy";
-			this.C_Proxy.HeaderText = "Proxy";
-			this.C_Proxy.MinimumWidth = 6;
-			this.C_Proxy.Name = "C_Proxy";
-			this.C_Proxy.Width = 125;
-			// 
-			// C_TypeBrowser
-			// 
-			this.C_TypeBrowser.HeaderText = "Loại Trình Duyệt";
-			this.C_TypeBrowser.Name = "C_TypeBrowser";
-			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1533, 683);
+			this.ClientSize = new System.Drawing.Size(1533, 695);
 			this.Controls.Add(this.dfhdfh);
 			this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "Form1";
-			this.Text = "Tool TikTok By  DatDio V3.1";
+			this.Text = "Tool TikTok By  DatDio V3.4";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.dfhdfh.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
@@ -1486,14 +1536,14 @@
 			this.panel4.ResumeLayout(false);
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
+			this.panel6.ResumeLayout(false);
+			this.panel6.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
 			this.panel7.ResumeLayout(false);
 			this.panel7.PerformLayout();
-			this.panel6.ResumeLayout(false);
-			this.panel6.PerformLayout();
 			this.panel5.ResumeLayout(false);
 			this.panel5.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
@@ -1637,6 +1687,10 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn C_GPMID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn C_Proxy;
 		private System.Windows.Forms.DataGridViewTextBoxColumn C_TypeBrowser;
+		private System.Windows.Forms.RadioButton rdoUrbanVPN;
+		private System.Windows.Forms.ComboBox cbbCountryVPN;
+		private System.Windows.Forms.Label label16;
+		private System.Windows.Forms.TextBox txtUserAgent;
 	}
 }
 

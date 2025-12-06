@@ -11,13 +11,16 @@ using Tool_TikTok.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Newtonsoft.Json.Linq;
+using AngleSharp;
+using Jint;
+using System.Net.Http;
 
 namespace Tool_TikTok.Controllers
 {
     public class TikTokAPIController
     {
         public TikTokAPIController() { }
-        public ResultModel GetInfoTikTok(AccountModel account)
+        public   ResultModel GetInfoTikTok(AccountModel account)
         {
             string body = "", refer = "";
             using (var rq = new HttpRequest())
@@ -87,21 +90,23 @@ namespace Tool_TikTok.Controllers
                 {
                     FunctionHelper.EditValueColumn(account, "C_Video", "lỗi");
                 }
-                //Lấy ViewVideo
-                FunctionHelper.AddHeaderxNet(rq, @"Connection: keep-alive
-											sec-ch-ua: ""Google Chrome"";v=""119"", ""Chromium"";v=""119"", ""Not?A_Brand"";v=""24""
-											Accept: application/json, text/plain, */*
-											sec-ch-ua-mobile: ?0
-											User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
-											sec-ch-ua-platform: ""Windows""
-											Sec-Fetch-Site: same-origin
-											Sec-Fetch-Mode: cors
-											Sec-Fetch-Dest: empty
-											Referer: https://www.tiktok.com/creator-center/content");
+				
+				//Lấy ViewVideo
+				FunctionHelper.AddHeaderxNet(rq, $@"Connection: keep-alive
+                                            sec-ch-ua: ""Chromium"";v=""124"", ""Google Chrome"";v=""124"", ""Not-A.Brand"";v=""99""
+                                            sec-ch-ua-mobile: ?0
+                                            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
+                                            sec-ch-ua-platform: ""Windows""
+                                            Accept: */*
+                                            Sec-Fetch-Site: same-origin
+                                            Sec-Fetch-Mode: cors
+                                            Sec-Fetch-Dest: empty
+                                            Referer: {refer}");
                 try
                 {
-                    body = rq.Get(@"https://www.tiktok.com/creator-center/api/web/items?locale=vi-VN&aid=1988&priority_region=VN&region=VN&tz_name=Asia%2FSaigon&app_name=tiktok_creator_center&device_platform=web_pc&os=win&screen_width=1466&screen_height=825&browser_language=vi-VN&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F119.0.0.0+Safari%2F537.36&cursorPosition=0&limit=10").ToString();
-                }
+					//body = rq.Get(@"https://www.tiktok.com/creator-center/api/web/items?locale=vi-VN&aid=1988&priority_region=VN&region=VN&tz_name=Asia%2FSaigon&app_name=tiktok_creator_center&device_platform=web_pc&os=win&screen_width=1466&screen_height=825&browser_language=vi-VN&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F119.0.0.0+Safari%2F537.36&cursorPosition=0&limit=10").ToString();
+					body = rq.Get(@"https://www.tiktok.com/api/post/item_list/?WebIdLastTime=1723446228&aid=1988&app_language=vi-VN&app_name=tiktok_web&browser_language=vi-VN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F124.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=35&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7402144828275181072&device_platform=web_pc&focus_state=true&from_page=user&history_len=3&is_fullscreen=false&is_page_visible=true&language=vi-VN&odinId=7269560210382898222&os=windows&priority_region=&referer=&region=VN&screen_height=1080&screen_width=1920&secUid=MS4wLjABAAAAO5cuc-lfywcm1f59EZ_3qqjPTYq3MFw0sKD5NvEB20u-6FeP2qSgHvAKuBLx0gHk&tz_name=Asia%2FBangkok&user_is_login=true&webcast_language=vi-VN&msToken=tG9XK1uIXyB0OTg_BoSNbbkuheFtLYLwdJ-HA1riqCIMEztNmSEowHPx_bpy8R4r0LlWWW-wMjte-d9bwSvT9VQNmjZ3fyl9ZMlJGzqddzl25dOzCeZnBS1MJTkCLykPKJ_0AiQ1-PkaY7pK5h6kfYPs&X-Bogus=DFSzswVOGKiANegttfaAt6rxLCmS&_signature=_02B4Z6wo00001DHCnWwAAIDCdGdwMokGYrQxwpnAAGrR55").ToString();
+				}
                 catch
                 {
 
@@ -380,7 +385,8 @@ namespace Tool_TikTok.Controllers
             }
         }
 
-        public bool Follow(AccountModel account)
+
+		public bool Follow(AccountModel account)
         {
             string body = "", refer = "";
             using (var rq = new HttpRequest())

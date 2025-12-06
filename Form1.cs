@@ -29,7 +29,7 @@ namespace Tool_TikTok
 	public partial class Form1 : Form
 	{
 		public static DataGridView tblMain;
-		public static System.Windows.Forms.ComboBox _cbbTopic;
+		public static System.Windows.Forms.ComboBox _cbbTopic, _VPNCountry;
 		public static int CurrentWidth, CurrentHeight, _numberThread, _threadRunning, _success, _fail, _maxVideo;
 		public static double Scale;
 		public static bool _Login, _UpVideo, stop,
@@ -39,10 +39,13 @@ namespace Tool_TikTok
 							_Interact, _LoginByCookie,
 							_rdoProxyThuong, _rdoTMProxy,
 							_rdoUpVideoTimer, _rdoUpVideoNotTimer,
-							_changePass;
+							_changePass, _rdoUrbanVPN, _vpnUS,
+							_vpnJapan, _vpnItalya;
 		public static object lockChrome, lockProxy, lockTopic, lockfolder, lockDatabase;
 		public static decimal _TimeSleepFrom, _TimeSleepTo;
-		public static string _TimerHours, _TimerMinutes, _Tag, ApiGPM, _urlToFollow;
+		public static string _TimerHours, _TimerMinutes, _Tag,
+							ApiGPM, _urlToFollow,
+							_userAgent;
 		public static DateTime _TimerDate, _date, _timeInteractForm1;
 		public static SqlController sqlController;
 		public static List<string> _proxyList,
@@ -56,6 +59,7 @@ namespace Tool_TikTok
 			InitializeComponent();
 			tblMain = dataGridView1;
 			_cbbTopic = cbbTopic;
+			_VPNCountry = cbbCountryVPN;
 			_TimerDate = DateTime.Today;
 		}
 		private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -80,6 +84,7 @@ namespace Tool_TikTok
 			dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
 			rdoTimer.Checked = Settings.Default.rdoTimer;
 			rdoNotTimer.Checked = Settings.Default.rdoNotTimer;
+			rdoUrbanVPN.Checked = Settings.Default.rdoUrbanVPN;
 			random = new Random();
 			rdoFireFox.Checked = Settings.Default.rdoFireFox;
 			rdoChrome.Checked = Settings.Default.rdoChrome;
@@ -97,6 +102,7 @@ namespace Tool_TikTok
 			txtTimeSleepTo.Value = Settings.Default.txtTimeSleepTo;
 			txtScale.Text = Settings.Default.txtScale;
 			txtAPIGPM.Text = Settings.Default.txtAPIGPM;
+			txtUserAgent.Text = Settings.Default.txtUserAgent;
 			txtLinkToBuffFollow.Text = Settings.Default.txtLinkToBuffFollow;
 			RaiseAccForm._timeInteract = Settings.Default.txtTimeInteract;
 			RaiseAccForm._commentContent = Settings.Default.txtCommentContent;
@@ -192,7 +198,6 @@ namespace Tool_TikTok
 		{
 			sqlController.ReloadDataTopic(cbbTopic.Text);
 		}
-
 		private void btnAddFolder_Click(object sender, EventArgs e)
 		{
 			AddTopicForm addTopicForm = new AddTopicForm();
@@ -846,6 +851,7 @@ namespace Tool_TikTok
 			Settings.Default.rdoTMProxy = rdoTMProxy.Checked;
 			Settings.Default.rdoFireFox = rdoFireFox.Checked;
 			Settings.Default.rdoChrome = rdoChrome.Checked;
+			Settings.Default.rdoUrbanVPN = rdoUrbanVPN.Checked;
 			Settings.Default.ckbStatistical = ckbStatistical.Checked;
 			Settings.Default.ckbFollow = ckbFollow.Checked;
 			Settings.Default.ckbRegTikTok = ckbRegTikTok.Checked;
@@ -857,6 +863,7 @@ namespace Tool_TikTok
 			Settings.Default.txtNumberThread = txtNumberThread.Text;
 			Settings.Default.txtMaxVideo = txtMaxVideo.Text;
 			Settings.Default.txtAPIGPM = txtAPIGPM.Text;
+			Settings.Default.txtUserAgent = txtUserAgent.Text;
 			Settings.Default.txtLinkToBuffFollow = txtLinkToBuffFollow.Text;
 			Settings.Default.txtScale = txtScale.Text;
 			Settings.Default.txtTimerHours = txtTimerHours.Text;
@@ -865,6 +872,14 @@ namespace Tool_TikTok
 			Settings.Default.Save();
 			_rdoProxyThuong = rdoProxyThuong.Checked;
 			_rdoTMProxy = rdoTMProxy.Checked;
+			_rdoUrbanVPN = rdoUrbanVPN.Checked;
+			if (_rdoUrbanVPN == true)
+			{
+				if (_VPNCountry.Text == "")
+				{
+					MessageBox.Show("Vui lòng chọn quốc gia vpn!");
+				}
+			}
 			_rdoChrome = rdoChrome.Checked;
 			_rdoFirefox = rdoFireFox.Checked;
 			_rdoUpVideoNotTimer = rdoNotTimer.Checked;
@@ -883,6 +898,7 @@ namespace Tool_TikTok
 			_TimerHours = txtTimerHours.Text;
 			_TimerMinutes = txtTimerMinutes.Text;
 			_maxVideo = int.Parse(txtMaxVideo.Text);
+			_userAgent = txtUserAgent.Text;
 			_date = _TimerDate.Date.AddHours(int.Parse(_TimerHours)).AddMinutes(int.Parse(_TimerMinutes));
 
 			_Tag = txtTag.Text;
@@ -902,6 +918,13 @@ namespace Tool_TikTok
 		private void btnStart_Click(object sender, EventArgs e)
 		{
 			btnSave_Click(sender, e);
+			if (_rdoUrbanVPN == true)
+			{
+				if (_VPNCountry.Text == "")
+				{
+					return;
+				}
+			}
 			stop = false;
 			_success = 0;
 			_fail = 0;
@@ -944,8 +967,8 @@ namespace Tool_TikTok
 			DataGridViewRow row;
 			bool success = false;
 			DateTime _dateOneThread = _date;
-			int countPerform = 0;
-			string tokenTM = "";
+			int countGetUrbanVPN = 0;
+			string tokenTM = "", countryVPN = "";
 			lock (lockProxy)
 			{
 				if (_rdoTMProxy)
@@ -960,6 +983,7 @@ namespace Tool_TikTok
 			}
 			while (!stop)
 			{
+				int countPerform = 0;
 				lock (rowsChecked)
 				{
 					if (rowsChecked.Count == 0)
@@ -1033,24 +1057,46 @@ namespace Tool_TikTok
 					FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy);
 					FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...");
 				}
+				if (_rdoUrbanVPN)
+				{
+					lock (lockProxy)
+					{
+						account.C_Proxy = "";
+						FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
+					}
+					if (cbbCountryVPN.InvokeRequired)
+					{
+						cbbCountryVPN.Invoke(new MethodInvoker(delegate
+						{
+							// Thực hiện các thao tác với cbbCountryVPN tại đây
+							countryVPN = cbbCountryVPN.Text;
+						}));
+					}
+					else
+					{
+						// Thực hiện các thao tác với cbbCountryVPN tại đây
+						countryVPN = cbbCountryVPN.Text;
+					}
+				}
 				browserController = new BrowserController(account);
 				tikTokController = new TikTokController(account);
 
 			reStartLogin:
 				if (_Login)
 				{
-					//account.C_Proxy = "";
+					account.C_Proxy = "";
 					FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...");
 
-					account.firefoxDriver = browserController.OpenChromeGpmV3FireFox(ApiGPM, account.C_GPMID, account.C_Email, "", Scale, account.C_Proxy, position: position);
+
 					try
 					{
-						account.firefoxDriver = browserController.OpenChromeGpmV3FireFox(ApiGPM, account.C_GPMID, account.C_Email, "", Scale, account.C_Proxy, position: position);
-						if (_rdoFirefox)
-						{
-							account.driver.Manage().Window.Size = new System.Drawing.Size(800, 800);
-							account.driver.Manage().Window.Position = new System.Drawing.Point(int.Parse(position.Split(',')[0].Trim()), int.Parse(position.Split(',')[1].Trim()));
-						}
+						account.driver = browserController.OpenChromeGpm(ApiGPM, account.C_GPMID, account.C_Email, "", Scale, account.C_Proxy, position: position);
+						//account.firefoxDriver = browserController.OpenChromeGpmV3FireFox(ApiGPM, account.C_GPMID, account.C_Email, "", Scale, account.C_Proxy, position: position);
+						//if (_rdoFirefox)
+						//{
+						//	account.driver.Manage().Window.Size = new System.Drawing.Size(800, 800);
+						//	account.driver.Manage().Window.Position = new System.Drawing.Point(int.Parse(position.Split(',')[0].Trim()), int.Parse(position.Split(',')[1].Trim()));
+						//}
 					}
 					catch
 					{
@@ -1143,10 +1189,10 @@ namespace Tool_TikTok
 					{
 						var allCookies = account.driver.Manage().Cookies.AllCookies;
 						account.C_Cookie = JsonConvert.SerializeObject(allCookies);
-						//FunctionHelper.EditValueColumn(account, "C_Cookie", account.C_Cookie, true);
+						FunctionHelper.EditValueColumn(account, "C_Cookie", account.C_Cookie, true);
 						success = true;
 						FunctionHelper.EditValueColumn(account, "C_Status", "Login ok!", true);
-						browserController.CloseChrome();
+						//browserController.CloseChrome();
 					}
 					else if (status == ResultModel.Fail)
 					{
@@ -1308,7 +1354,7 @@ namespace Tool_TikTok
 					{
 						var allCookies = account.driver.Manage().Cookies.AllCookies;
 						account.C_Cookie = JsonConvert.SerializeObject(allCookies);
-						//FunctionHelper.EditValueColumn(account, "C_Cookie", account.C_Cookie, true);
+						FunctionHelper.EditValueColumn(account, "C_Cookie", account.C_Cookie);
 						success = true;
 						FunctionHelper.EditValueColumn(account, "C_Status", "Login ok!", true);
 						//browserController.CloseChrome();
@@ -1373,255 +1419,6 @@ namespace Tool_TikTok
 						}
 					}
 				}
-			reStartUpVideo:
-				if (_UpVideo)
-				{
-					if (account.C_Folder == "")
-					{
-						account.C_Folder = FunctionHelper.GetFolderNotUsing(account.C_Email);
-						if (account.C_Folder == "")
-						{
-							success = false;
-							FunctionHelper.EditValueColumn(account, "C_Status", "Đã hết folder video!", true);
-							goto finish;
-						}
-						FunctionHelper.EditValueColumn(account, "C_Folder", account.C_Folder, true);
-					}
-					//account.C_Proxy = "";
-					try
-					{
-						FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...", true);
-						account.driver = browserController.OpenChromeGpm(ApiGPM, account.C_GPMID, account.C_Email, "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/20G75 Safari/604.1", Scale, account.C_Proxy, position: position);
-					}
-					catch
-					{
-						success = false;
-						if (_rdoTMProxy)
-						{
-							FunctionHelper.EditValueColumn(account, "C_Status", "Đang lấy proxy ...");
-							account.C_Proxy = TMProxyHelper.GetNewProxy(tokenTM);
-							if (account.C_Proxy == "")
-							{
-								FunctionHelper.EditValueColumn(account, "C_Status", "Lấy proxy lỗi");
-								goto finish;
-							}
-
-							FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
-							FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...");
-						}
-						else if (_rdoProxyThuong)
-						{
-							lock (lockProxy)
-							{
-								if (_proxyList.Count == 0)
-								{
-									FunctionHelper.EditValueColumn(account, "C_Status", "Hết Proxy", true);
-									break;
-								}
-								account.C_Proxy = _proxyList[0];
-								_proxyList.RemoveAt(0);
-								File.WriteAllLines("input/Proxy.txt", _proxyList);
-								FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
-							}
-						}
-						FunctionHelper.EditValueColumn(account, "C_Status", "Mở GPM lỗi,đã đổi proxy!", true);
-						countPerform++;
-						if (countPerform == 2)
-						{
-							goto finish;
-						}
-						else
-						{
-							browserController.CloseChrome();
-							goto reStartUpVideo;
-						}
-					}
-					if (account.driver == null)
-					{
-						success = false;
-						if (_rdoTMProxy)
-						{
-							FunctionHelper.EditValueColumn(account, "C_Status", "Đang lấy proxy ...");
-							account.C_Proxy = TMProxyHelper.GetNewProxy(tokenTM);
-							if (account.C_Proxy == "")
-							{
-								FunctionHelper.EditValueColumn(account, "C_Status", "Lấy proxy lỗi");
-								goto finish;
-							}
-
-							FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
-							FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...");
-						}
-						else if (_rdoProxyThuong)
-						{
-							lock (lockProxy)
-							{
-								if (_proxyList.Count == 0)
-								{
-									FunctionHelper.EditValueColumn(account, "C_Status", "Hết Proxy", true);
-									break;
-								}
-								account.C_Proxy = _proxyList[0];
-								_proxyList.RemoveAt(0);
-								File.WriteAllLines("input/Proxy.txt", _proxyList);
-								FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
-							}
-						}
-						FunctionHelper.EditValueColumn(account, "C_Status", "Mở GPM lỗi, đã đổi proxy!", true);
-						countPerform++;
-						if (countPerform == 2)
-						{
-							goto finish;
-						}
-						else
-						{
-							browserController.CloseChrome();
-							goto reStartUpVideo;
-						}
-					}
-					bool clickAnotherVideo = false;
-					for (int i = 1; i <= _maxVideo; i++)
-					{
-						var file = FunctionHelper.GetVideoFolder(account.C_Folder);
-						if (file == "")
-						{
-							success = true;
-							FunctionHelper.EditValueColumn(account, "C_Status", $"Folder đã hết video!", true);
-							goto finish;
-						}
-						var duration = FunctionHelper.GetDuration(file);
-						if (duration >= 10)
-						{
-							FunctionHelper.EditValueColumn(account, "C_Status", "Video quá 10 phút!", true);
-							File.Move(file, file.Replace(account.C_Folder + "\\", account.C_Folder + "\\ERORR_"));
-							i--;
-							continue;
-						}
-						FunctionHelper.EditValueColumn(account, "C_Status", $"[{i}] Bắt đầu đăng video ...");
-						var status = tikTokController.UpVideo(file, _dateOneThread, ref clickAnotherVideo, i);
-						_dateOneThread = _dateOneThread.AddMinutes(FunctionHelper.RandomMinutes((int)_TimeSleepFrom, (int)_TimeSleepTo));
-						if (status == ResultModel.Success)
-						{
-							//if (i == 1)
-							//{
-							//    var allCookies = account.driver.Manage().Cookies.AllCookies;
-							//    account.C_Cookie = JsonConvert.SerializeObject(allCookies);
-							//    FunctionHelper.EditValueColumn(account, "C_Cookie", account.C_Cookie, true);
-							//}
-							success = true;
-							FunctionHelper.EditValueColumn(account, "C_Folder", account.C_Email, true);
-							File.Move(file, file.Replace(account.C_Folder + "\\", account.C_Folder + "\\DONE_"));
-							FunctionHelper.EditValueColumn(account, "C_Status", $"[{i}]Đăng video thành công!", true);
-
-						}
-						else if (status == ResultModel.Fail)
-						{
-							success = false;
-							FunctionHelper.EditValueColumn(account, "C_Status", $"[{i}]Đăng video thất bại!", true);
-
-						}
-						else if (status == ResultModel.ErorrAcc)
-						{
-							success = false;
-							FunctionHelper.EditValueColumn(account, "C_Status", "Acc lỗi ineligible!", true);
-							goto finish;
-						}
-						else if (status == ResultModel.Suspended)
-						{
-							success = false;
-							FunctionHelper.EditValueColumn(account, "C_Status", "Suspend acc!", true);
-							goto finish;
-						}
-						else if (status == ResultModel.NotLogin)
-						{
-							success = false;
-							FunctionHelper.EditValueColumn(account, "C_Status", "Chưa login!", true);
-							goto finish;
-						}
-						else if (status == ResultModel.WeakProxy)
-						{
-							success = false;
-							if (_rdoTMProxy)
-							{
-								FunctionHelper.EditValueColumn(account, "C_Status", "Đang lấy proxy ...");
-								account.C_Proxy = TMProxyHelper.GetNewProxy(tokenTM);
-								if (account.C_Proxy == "")
-								{
-									FunctionHelper.EditValueColumn(account, "C_Status", "Lấy proxy lỗi");
-									goto finish;
-								}
-
-								FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
-								FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...");
-							}
-							else if (_rdoProxyThuong)
-							{
-								lock (lockProxy)
-								{
-									if (_proxyList.Count == 0)
-									{
-										FunctionHelper.EditValueColumn(account, "C_Status", "Hết Proxy", true);
-										break;
-									}
-									account.C_Proxy = _proxyList[0];
-									_proxyList.RemoveAt(0);
-									File.WriteAllLines("input/Proxy.txt", _proxyList);
-									FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
-								}
-							}
-							FunctionHelper.EditValueColumn(account, "C_Status", $"Proxy quá yếu, đã đổi proxy!", true);
-							countPerform++;
-							if (countPerform == 2)
-							{
-								goto finish;
-							}
-							else
-							{
-								browserController.CloseChrome();
-								goto reStartUpVideo;
-							}
-						}
-					}
-					browserController.CloseChrome();
-				}
-
-				if (_Statistical)
-				{
-					tikTokAPIController = new TikTokAPIController();
-
-					FunctionHelper.EditValueColumn(account, "C_Status", "Đang thống kê ...");
-					var status = tikTokAPIController.GetInfoTikTok(account);
-					if (status == ResultModel.Success)
-					{
-						success = true;
-						FunctionHelper.EditValueColumn(account, "C_Status", "Thống kê xong!", true);
-					}
-					else if (status == ResultModel.Fail)
-					{
-						success = false;
-						FunctionHelper.EditValueColumn(account, "C_Status", "Thống kê có lỗi!", true);
-						goto finish;
-					}
-					else if (status == ResultModel.Suspended)
-					{
-						success = false;
-						FunctionHelper.EditValueColumn(account, "C_Status", "Suspended account!", true);
-						goto finish;
-					}
-					else if (status == ResultModel.AnotherError)
-					{
-						success = false;
-						FunctionHelper.EditValueColumn(account, "C_Status", "Lỗi khác!", true);
-						goto finish;
-					}
-					else if (status == ResultModel.NotLogin)
-					{
-						success = false;
-						FunctionHelper.EditValueColumn(account, "C_Status", "Chưa login!", true);
-						goto finish;
-					}
-				}
-
 			reStartRegTikTok:
 				if (_RegTikTok)
 				{
@@ -1717,6 +1514,25 @@ namespace Tool_TikTok
 							goto reStartRegTikTok;
 						}
 					}
+					if (_rdoUrbanVPN)
+					{
+						Thread.Sleep(5000);
+						var statusUrban = tikTokController.GetUrbanVPN(countryVPN);
+						if (statusUrban == ResultModel.Fail)
+						{
+							countGetUrbanVPN++;
+							if (countGetUrbanVPN == 2)
+							{
+								FunctionHelper.EditValueColumn(account, "C_Status", $"Bật vpn lỗi!", true);
+								goto finish;
+							}
+							else
+							{
+								browserController.CloseChrome();
+								goto reStartRegTikTok;
+							}
+						}
+					}
 					FunctionHelper.EditValueColumn(account, "C_Status", "Bắt đầu reg ...");
 					var status = tikTokController.RegTikTok();
 					if (status == ResultModel.Success)
@@ -1747,7 +1563,82 @@ namespace Tool_TikTok
 						FunctionHelper.EditValueColumn(account, "C_Status", "Reg thất bại: ko có code", true);
 						goto finish;
 					}
+					else if (status == ResultModel.AlreadyReged)
+					{
+						success = false;
+						FunctionHelper.EditValueColumn(account, "C_Status", "Đã reg trước đó", true);
+						goto finish;
+					}
 					else if (status == ResultModel.WeakProxy)
+					{
+						if (!_rdoUrbanVPN)
+						{
+							success = false;
+							if (_rdoTMProxy)
+							{
+								FunctionHelper.EditValueColumn(account, "C_Status", "Đang lấy proxy ...");
+								account.C_Proxy = TMProxyHelper.GetNewProxy(tokenTM);
+								if (account.C_Proxy == "")
+								{
+									FunctionHelper.EditValueColumn(account, "C_Status", "Lấy proxy lỗi");
+									goto finish;
+								}
+
+								FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
+								FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...");
+							}
+							else if (_rdoProxyThuong)
+							{
+								lock (lockProxy)
+								{
+									if (_proxyList.Count == 0)
+									{
+										FunctionHelper.EditValueColumn(account, "C_Status", "Hết Proxy", true);
+										break;
+									}
+									account.C_Proxy = _proxyList[0];
+									_proxyList.RemoveAt(0);
+									File.WriteAllLines("input/Proxy.txt", _proxyList);
+									FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
+								}
+							}
+							FunctionHelper.EditValueColumn(account, "C_Status", "Proxy quá yếu,đã đổi proxy!", true);
+							//row.Cells["C_Check"].Value = false;
+							countPerform++;
+							if (countPerform == 2)
+							{
+								goto finish;
+							}
+							else
+							{
+								browserController.CloseChrome();
+								goto reStartRegTikTok;
+							}
+						}
+					}
+				}
+
+			reStartUpVideo:
+				if (_UpVideo)
+				{
+					if (account.C_Folder == "")
+					{
+						account.C_Folder = FunctionHelper.GetFolderNotUsing(account.C_Email);
+						if (account.C_Folder == "")
+						{
+							success = false;
+							FunctionHelper.EditValueColumn(account, "C_Status", "Đã hết folder video!", true);
+							goto finish;
+						}
+						FunctionHelper.EditValueColumn(account, "C_Folder", account.C_Folder, true);
+					}
+					//account.C_Proxy = "";
+					try
+					{
+						FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...", true);
+						account.driver = browserController.OpenChromeGpm(ApiGPM, account.C_GPMID, account.C_Email, _userAgent, Scale, account.C_Proxy, position: position);
+					}
+					catch
 					{
 						success = false;
 						if (_rdoTMProxy)
@@ -1778,8 +1669,7 @@ namespace Tool_TikTok
 								FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
 							}
 						}
-						FunctionHelper.EditValueColumn(account, "C_Status", "Proxy quá yếu,đã đổi proxy!", true);
-						//row.Cells["C_Check"].Value = false;
+						FunctionHelper.EditValueColumn(account, "C_Status", "Mở GPM lỗi,đã đổi proxy!", true);
 						countPerform++;
 						if (countPerform == 2)
 						{
@@ -1788,8 +1678,228 @@ namespace Tool_TikTok
 						else
 						{
 							browserController.CloseChrome();
-							goto reStartRegTikTok;
+							goto reStartUpVideo;
 						}
+					}
+					if (account.driver == null)
+					{
+						success = false;
+						if (_rdoTMProxy)
+						{
+							FunctionHelper.EditValueColumn(account, "C_Status", "Đang lấy proxy ...");
+							account.C_Proxy = TMProxyHelper.GetNewProxy(tokenTM);
+							if (account.C_Proxy == "")
+							{
+								FunctionHelper.EditValueColumn(account, "C_Status", "Lấy proxy lỗi");
+								goto finish;
+							}
+
+							FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
+							FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...");
+						}
+						else if (_rdoProxyThuong)
+						{
+							lock (lockProxy)
+							{
+								if (_proxyList.Count == 0)
+								{
+									FunctionHelper.EditValueColumn(account, "C_Status", "Hết Proxy", true);
+									break;
+								}
+								account.C_Proxy = _proxyList[0];
+								_proxyList.RemoveAt(0);
+								File.WriteAllLines("input/Proxy.txt", _proxyList);
+								FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
+							}
+						}
+						FunctionHelper.EditValueColumn(account, "C_Status", "Mở GPM lỗi, đã đổi proxy!", true);
+						countPerform++;
+						if (countPerform == 2)
+						{
+							goto finish;
+						}
+						else
+						{
+							browserController.CloseChrome();
+							goto reStartUpVideo;
+						}
+					}
+					if (_rdoUrbanVPN)
+					{
+						var statusUrban = tikTokController.GetUrbanVPN(countryVPN);
+						if (statusUrban == ResultModel.Fail)
+						{
+							countGetUrbanVPN++;
+							if (countGetUrbanVPN == 3)
+							{
+								FunctionHelper.EditValueColumn(account, "C_Status", $"Bật vpn lỗi!", true);
+								goto finish;
+							}
+							else
+							{
+								browserController.CloseChrome();
+								goto reStartUpVideo;
+							}
+						}
+					}
+
+					bool clickAnotherVideo = false;
+					for (int i = 1; i <= _maxVideo; i++)
+					{
+
+						var file = FunctionHelper.GetVideoFolder(account.C_Folder);
+						if (file == "")
+						{
+							success = true;
+							FunctionHelper.EditValueColumn(account, "C_Status", $"Folder đã hết video!", true);
+							goto finish;
+						}
+						var duration = FunctionHelper.GetDuration(file);
+						if (duration >= 10)
+						{
+							FunctionHelper.EditValueColumn(account, "C_Status", "Video quá 10 phút!", true);
+							File.Move(file, file.Replace(account.C_Folder + "\\", account.C_Folder + "\\ERORR_"));
+							i--;
+							continue;
+						}
+						FunctionHelper.EditValueColumn(account, "C_Status", $"[{i}] Bắt đầu đăng video ...");
+						var status = tikTokController.UpVideo(file, _dateOneThread, ref clickAnotherVideo, i);
+						_dateOneThread = _dateOneThread.AddMinutes(FunctionHelper.RandomMinutes((int)_TimeSleepFrom, (int)_TimeSleepTo));
+						if (status == ResultModel.Success)
+						{
+							//if (i == 1)
+							//{
+							//    var allCookies = account.driver.Manage().Cookies.AllCookies;
+							//    account.C_Cookie = JsonConvert.SerializeObject(allCookies);
+							//    FunctionHelper.EditValueColumn(account, "C_Cookie", account.C_Cookie, true);
+							//}
+							success = true;
+							FunctionHelper.EditValueColumn(account, "C_Folder", account.C_Email, true);
+							File.Move(file, file.Replace(account.C_Folder + "\\", account.C_Folder + "\\DONE_"));
+							FunctionHelper.EditValueColumn(account, "C_Status", $"[{i}]Đăng video thành công!", true);
+
+						}
+						else if (status == ResultModel.Fail)
+						{
+							clickAnotherVideo = false;
+							success = false;
+							FunctionHelper.EditValueColumn(account, "C_Status", $"[{i}]Đăng video thất bại!", true);
+
+						}
+						else if (status == ResultModel.ErorrAcc)
+						{
+							success = false;
+							FunctionHelper.EditValueColumn(account, "C_Status", "Acc lỗi ineligible!", true);
+							goto finish;
+						}
+						else if (status == ResultModel.Suspended)
+						{
+							success = false;
+							FunctionHelper.EditValueColumn(account, "C_Status", "Suspend acc!", true);
+							goto finish;
+						}
+						else if (status == ResultModel.NotLogin)
+						{
+							success = false;
+							FunctionHelper.EditValueColumn(account, "C_Status", "Chưa login!", true);
+							goto finish;
+						}
+						else if (status == ResultModel.WeakProxy)
+						{
+							if (!_rdoUrbanVPN)
+							{
+								success = false;
+								if (_rdoTMProxy)
+								{
+									FunctionHelper.EditValueColumn(account, "C_Status", "Đang lấy proxy ...");
+									account.C_Proxy = TMProxyHelper.GetNewProxy(tokenTM);
+									if (account.C_Proxy == "")
+									{
+										FunctionHelper.EditValueColumn(account, "C_Status", "Lấy proxy lỗi");
+										goto finish;
+									}
+
+									FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
+									FunctionHelper.EditValueColumn(account, "C_Status", "Đang mở trình duyệt ...");
+								}
+								else if (_rdoProxyThuong)
+								{
+									lock (lockProxy)
+									{
+										if (_proxyList.Count == 0)
+										{
+											FunctionHelper.EditValueColumn(account, "C_Status", "Hết Proxy", true);
+											break;
+										}
+										account.C_Proxy = _proxyList[0];
+										_proxyList.RemoveAt(0);
+										File.WriteAllLines("input/Proxy.txt", _proxyList);
+										FunctionHelper.EditValueColumn(account, "C_Proxy", account.C_Proxy, true);
+									}
+								}
+								FunctionHelper.EditValueColumn(account, "C_Status", $"Proxy quá yếu, đã đổi proxy!", true);
+								countPerform++;
+								if (countPerform == 2)
+								{
+									goto finish;
+								}
+								else
+								{
+									browserController.CloseChrome();
+									goto reStartUpVideo;
+								}
+							}
+						}
+					}
+					browserController.CloseChrome();
+				}
+
+				if (_Statistical)
+				{
+					tikTokAPIController = new TikTokAPIController();
+					//account.C_Proxy = "";
+					FunctionHelper.EditValueColumn(account, "C_Status", "Đang thống kê ...");
+					//var status = tikTokAPIController.GetInfoTikTok(account);
+					try
+					{
+						account.driver = browserController.OpenChromeGpm(ApiGPM, account.C_GPMID,
+							account.C_Email, "", Scale, account.C_Proxy, hideBrowser: false, position: position);
+					}
+					catch
+					{
+						FunctionHelper.EditValueColumn(account, "C_Status", "Lỗi xảy ra");
+						success = false;
+						goto finish;
+					}
+					var status = tikTokController.GetInfoTikTok();
+					if (status == ResultModel.Success)
+					{
+						success = true;
+						FunctionHelper.EditValueColumn(account, "C_Status", "Thống kê xong!", true);
+					}
+					else if (status == ResultModel.Fail)
+					{
+						success = false;
+						FunctionHelper.EditValueColumn(account, "C_Status", "Thống kê có lỗi!", true);
+						goto finish;
+					}
+					else if (status == ResultModel.Suspended)
+					{
+						success = false;
+						FunctionHelper.EditValueColumn(account, "C_Status", "Suspended account!", true);
+						goto finish;
+					}
+					else if (status == ResultModel.AnotherError)
+					{
+						success = false;
+						FunctionHelper.EditValueColumn(account, "C_Status", "Lỗi khác!", true);
+						goto finish;
+					}
+					else if (status == ResultModel.NotLogin)
+					{
+						success = false;
+						FunctionHelper.EditValueColumn(account, "C_Status", "Chưa login!", true);
+						goto finish;
 					}
 				}
 
@@ -2311,7 +2421,6 @@ namespace Tool_TikTok
 				{
 
 				}
-
 				if (success)
 				{
 					account.C_Row.DefaultCellStyle.ForeColor = Settings.Default.colorGreeen;

@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +19,7 @@ namespace Tool_TikTok.Controllers
 	public class BrowserController
 	{
 		ChromeDriver driver;
-		FirefoxDriver firefoxDriver;
+		OpenQA.Selenium.Firefox.FirefoxDriver firefoxDriver;
 		AccountModel account;
 		//public string createdProfileId;
 		private GPMLoginAPI api;
@@ -91,7 +91,7 @@ namespace Tool_TikTok.Controllers
 
 			return driver;
 		}
-		public FirefoxDriver OpenChromeGpmV3FireFox(string apiGpm, string createdProfileId, string name, string useragent = "", double scale = 0.7, string proxy = "", bool hideBrowser = false, string position = "0,0")
+		public OpenQA.Selenium.Firefox.FirefoxDriver OpenChromeGpmV3FireFox(string apiGpm, string createdProfileId, string name, string useragent = "", double scale = 0.7, string proxy = "", bool hideBrowser = false, string position = "0,0")
 		{
 			apiV3 = new GPMLoginAPIV3(apiGpm);
 			if (createdProfileId == "")
@@ -142,18 +142,18 @@ namespace Tool_TikTok.Controllers
 
 			var gpmDriverFileInfo = new FileInfo(gpmDriverPath);
 
-			var service = FirefoxDriverService.CreateDefaultService(gpmDriverFileInfo.DirectoryName, gpmDriverFileInfo.Name);
+			var service = OpenQA.Selenium.Firefox.FirefoxDriverService.CreateDefaultService(gpmDriverFileInfo.DirectoryName, gpmDriverFileInfo.Name);
 			service.HideCommandPromptWindow = true;
 			//service.DriverServicePath = gpmDriverPath;
-			service.Host = "127.0.0.1";
-			service.Port = int.Parse(seleniumRemoteDebugAddress.Split(':')[1]);
-			var options = new FirefoxOptions
+			//service.Host = "127.0.0.1";
+			//service.Port = int.Parse(seleniumRemoteDebugAddress.Split(':')[1]);
+			var options = new OpenQA.Selenium.Firefox.FirefoxOptions
 			{
 				BinaryLocation = browserLocation,
-
+				
 				//LogLevel = FirefoxDriverLogLevel.Debug,
 				EnableDevToolsProtocol = true,
-				UseWebSocketUrl= true,
+				//UseWebSocketUrl= true,
 				//DebuggerAddress = seleniumRemoteDebugAddress
 
 			};
@@ -161,13 +161,15 @@ namespace Tool_TikTok.Controllers
 			options.AddAdditionalOption("devtools.debugger.remote-enabled", true);
 			options.AddAdditionalOption("devtools.debugger.prompt-connection", false);
 			options.UseWebSocketUrl = false;
-			//options.AddAdditionalOption("moz:debuggerAddress", seleniumRemoteDebugAddress);
-			//options.AddArgument($"--remote-debugging-port={seleniumRemoteDebugAddress.Split(':')[1]}");
-			firefoxDriver = new FirefoxDriver(service, options);
+			options.AddAdditionalOption("moz:debuggerAddress", seleniumRemoteDebugAddress);
+			options.AddArgument($"--remote-debugging-port={seleniumRemoteDebugAddress.Split(':')[1]}");
+			firefoxDriver = new OpenQA.Selenium.Firefox.FirefoxDriver(service, options);
 
 			return firefoxDriver;
 		}
-		public ChromeDriver OpenChromeGpm(string apiGpm, string createdProfileId, string name, string useragent = "", double scale = 0.7, string proxy = "", bool hideBrowser = false, string position = "0,0")
+		public ChromeDriver OpenChromeGpm(string apiGpm, string createdProfileId, 
+			string name, string useragent = "", double scale = 0.7, 
+			string proxy = "", bool hideBrowser = false, string position = "0,0")
 		{
 			//this.createdProfileId = "";
 
@@ -202,12 +204,12 @@ namespace Tool_TikTok.Controllers
 
 			if (useragent != "")
 			{
-				arg += $" --user-agent=\"{useragent}\"";
+				arg += $"--user-agent=\"{useragent}\"";
 			}
 
 			if (hideBrowser)
 			{
-				arg += $" --headless";
+				arg += $"--headless";
 			}
 
 			api.UpdateProxy(createdProfileId, proxy.Replace("http://", ""));
@@ -234,7 +236,7 @@ namespace Tool_TikTok.Controllers
 				BinaryLocation = browserLocation,
 				DebuggerAddress = seleniumRemoteDebugAddress
 			};
-
+			options.AddArgument("--headless");
 			driver = new ChromeDriver(service, options);
 
 			return driver;

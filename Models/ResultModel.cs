@@ -17,7 +17,8 @@ namespace Tool_TikTok.Models
 		CodeEmpty,
 		Suspended,
 		AnotherError,
-		AlreadyLogin
+		AlreadyLogin,
+		AlreadyReged
 
 	}
 }
